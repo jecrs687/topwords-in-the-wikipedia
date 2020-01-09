@@ -1,5 +1,5 @@
 import requests
-import googletrans
+#import googletrans
 from bs4 import BeautifulSoup
 import time
 import random
@@ -179,7 +179,10 @@ def obter_paginas(link,prefixo):
 
 def remover_links(link, prefixo):
     d=0
+    print('[')
     for z in range (0, len(link)):
+        if type(z/100)==int:
+            print('-')
         site = requests.get('https:'+prefixo+link[z])
         soup = BeautifulSoup(site.content, 'html.parser')
         pagina_excluir = soup.find_all('div', id=True)
@@ -194,9 +197,11 @@ def remover_links(link, prefixo):
                         if(not(pagina_excluir[y]['href'].count('.')>0)):
                             paginas_excluir.append(pagina_excluir[y]['href'])
                             d = d+1
+
                 if (d==3):
                     break
         break
+
     d=0
     for x in range(0, len(link)):
         e = 0
@@ -236,11 +241,12 @@ def obter_prefixo(link):
         prefixo.append((x['title'],x['href']))
     return prefixo
 
-def arquivar(conteudo, lingua1, tamanho, traduzido):
+def arquivar(conteudo, lingua1, tamanho):
     arq = open(lingua1+'-pt.txt','w+', encoding="utf-8")
     for z in range(0, len(conteudo)):
-        arq.write(conteudo[z][0].upper().capitalize()+'_{}_{:0.2f}%_{}/{}'.format(traduzido[z],(conteudo[z][1]/tamanho)*100,conteudo[z][1],tamanho))
+        arq.write(conteudo[z][0].upper().capitalize()+'_{:0.2f}%_{}/{}'.format((conteudo[z][1]/tamanho)*100,conteudo[z][1],tamanho))
         arq.write("\n")
+    print('arquivo salvo como {}-pt.txt'.format(lingua1))
     arq.close()
 
 def enxutar(conteudo, lingua):
@@ -272,16 +278,19 @@ def enxutar(conteudo, lingua):
 def processar_conteudo(prefixo):
     print("obtendo paginas")
     link = obter_paginas([''],prefixo[1])
-    while(len(link)<50):
-        print("obtendo mais paginas")
-        link = obter_paginas(link, prefixo[1])
-        print("removendo links excessivos ou identicos")
-        link = remover_links(link, prefixo[1])
     print("removendo links excessivos ou identicos")
     link = remover_links(link, prefixo[1])
+    while(len(link)<1000):
+        print("-----existem:{} links".format(len(link)))
+        print("obtendo mais paginas")
+        link = obter_paginas(link, prefixo[1])
+        print("-----existem:{} links".format(len(link)))
+        print("removendo links excessivos ou identicos")
+        link = remover_links(link, prefixo[1])
+        print("-----existem:{} links".format(len(link)))
     print("obtendo condeudo")
     conteudo = obter_conteudo(link[0],prefixo[1])
-    for x in range(1, 10):
+    for x in range(1, len(link)):
         print("pegando conteudo: {}/{}".format(x, len(link)-1))
         conteudo = conteudo + obter_conteudo(link[x], prefixo[1])
     print("filtrando conteudo")
@@ -290,10 +299,10 @@ def processar_conteudo(prefixo):
     conteudo = contar_conteudo_e_remover_excesso(conteudo)
     print("ordenando conteudo")
     conteudo = ordenar_conteudo(conteudo)
-    print("enxutar e traduzindo")
-    conteudo,traduzido = enxutar(conteudo, prefixo[0])
+    #print("enxutar e traduzindo")
+    #conteudo,traduzido = enxutar(conteudo, prefixo[0])
     print("arquivando")
-    arquivar(conteudo, prefixo[0], tamanho, traduzido)
+    arquivar(conteudo, prefixo[0], tamanho)
     print("\n\n\n\n")
     return conteudo
 
