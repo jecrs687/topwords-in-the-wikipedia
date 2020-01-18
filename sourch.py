@@ -181,7 +181,7 @@ def remover_links(link, prefixo):
     d=0
     print('[')
     for z in range (0, len(link)):
-        if type(z/100)==int:
+        if z//1000==0:
             print('-')
         site = requests.get('https:'+prefixo+link[z])
         soup = BeautifulSoup(site.content, 'html.parser')
