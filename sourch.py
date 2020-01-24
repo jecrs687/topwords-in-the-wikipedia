@@ -286,7 +286,7 @@ def processar_conteudo(prefixo):
     link = obter_paginas([''],prefixo[1])
     print("removendo links excessivos ou identicos")
     link = remover_links(link, prefixo[1])
-    while(len(link)<100):
+    while(len(link)<1000):
         print("-----existem:{} links".format(len(link)))
         print("obtendo mais paginas")
         link = obter_paginas(link, prefixo[1])
