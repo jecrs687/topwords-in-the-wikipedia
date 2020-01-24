@@ -112,6 +112,7 @@ LANGUAGES = {
     'fil': 'Filipino',
     'he': 'Hebrew'
 }
+
 LANGCODES = dict(map(reversed, LANGUAGES.items()))
 
 
@@ -243,10 +244,15 @@ def obter_prefixo(link):
 
 def arquivar(conteudo, lingua1, tamanho):
     arq = open(lingua1+'-pt.txt','w+', encoding="utf-8")
+    arq.write('{'+'tamanho:{},'.format(tamanho)+'palavras:[')
+    arq.write("\n")
+    arq.write("\n")
     for z in range(0, len(conteudo)):
-        arq.write(conteudo[z][0].upper().capitalize()+'_{:0.2f}%_{}/{}'.format((conteudo[z][1]/tamanho)*100,conteudo[z][1],tamanho))
+        arq.write('{paravra:"'+conteudo[z][0].upper().capitalize()+'",repetida:{}'.format(conteudo[z][1])+',porcentagem:{:0.2f}'.format((conteudo[z][1]/tamanho)*100)+'},')
         arq.write("\n")
+    arq.write('],}')
     print('arquivo salvo como {}-pt.txt'.format(lingua1))
+
     arq.close()
 
 def enxutar(conteudo, lingua):
@@ -280,7 +286,7 @@ def processar_conteudo(prefixo):
     link = obter_paginas([''],prefixo[1])
     print("removendo links excessivos ou identicos")
     link = remover_links(link, prefixo[1])
-    while(len(link)<1000):
+    while(len(link)<100):
         print("-----existem:{} links".format(len(link)))
         print("obtendo mais paginas")
         link = obter_paginas(link, prefixo[1])
