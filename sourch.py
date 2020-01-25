@@ -187,7 +187,6 @@ def remover_links(link, prefixo):
         d=0
         while(y<len(boost)):
             if(boost[x]==boost[y]):
-                print(boost[y])
                 del(boost[y])
                 d=d+1
             y=y+1
@@ -197,37 +196,35 @@ def remover_links(link, prefixo):
     for x in boost:
         link[boost.index(x)]=x[0]
     x=0
-
     while(x<len(link)):
         y=x+1
         while(y<len(link)):
             if(link[x]==link[y]):
-                print(link[y])
                 del(link[y])
                 d=d+1
             y=y+1
         x=x+1
     print(len(link))
+    # não lembro o q essa parada de baixo faz, talvez tenha sido alguma noia ksks
+    # for z in range (0, len(link)):
+    #     site = requests.get('https:'+prefixo+link[z])
+    #     soup = BeautifulSoup(site.content, 'html.parser')
+    #     pagina_excluir = soup.find_all('div', id=True)
+    #     paginas_excluir = []
+    #     d=0
+    #     for x in range (0, len(pagina_excluir)):
+    #         pagina_excluir = soup.find_all('div', id=True)
+    #         if(pagina_excluir[x]['id']=='mw-panel' or pagina_excluir[x]['id']=='lang' or pagina_excluir[x]['id']=='mp-sister-content'):
+    #             pagina_excluir = pagina_excluir[x].find_all('a', href=True)
+    #             for y in range(0,len(pagina_excluir)):
+    #                 if(not(pagina_excluir[y]['href']==None)):
+    #                     if(not(pagina_excluir[y]['href'].count('.')>0)):
+    #                         paginas_excluir.append(pagina_excluir[y]['href'])
+    #                         d = d+1
 
-    for z in range (0, len(link)):
-        site = requests.get('https:'+prefixo+link[z])
-        soup = BeautifulSoup(site.content, 'html.parser')
-        pagina_excluir = soup.find_all('div', id=True)
-        paginas_excluir = []
-        d=0
-        for x in range (0, len(pagina_excluir)):
-            pagina_excluir = soup.find_all('div', id=True)
-            if(pagina_excluir[x]['id']=='mw-panel' or pagina_excluir[x]['id']=='lang' or pagina_excluir[x]['id']=='mp-sister-content'):
-                pagina_excluir = pagina_excluir[x].find_all('a', href=True)
-                for y in range(0,len(pagina_excluir)):
-                    if(not(pagina_excluir[y]['href']==None)):
-                        if(not(pagina_excluir[y]['href'].count('.')>0)):
-                            paginas_excluir.append(pagina_excluir[y]['href'])
-                            d = d+1
-
-                if (d==3):
-                    break
-        break
+    #             if (d==3):
+    #                 break
+    #     break
     return link
 
 def obter_prefixo(link):
