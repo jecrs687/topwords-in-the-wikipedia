@@ -179,11 +179,37 @@ def obter_paginas(link,prefixo):
     return link
 
 def remover_links(link, prefixo):
-    d=0
-    print('[')
+    x=0
+    print(len(link))
+    boost = link[0:int(len(link)/10)]
+    while(x<len(boost)):
+        y=x+1
+        d=0
+        while(y<len(boost)):
+            if(boost[x]==boost[y]):
+                print(boost[y])
+                del(boost[y])
+                d=d+1
+            y=y+1
+        boost[x]=[boost[x],d]
+        x=x+1
+    boost.sort(key=lambda x: x[1], reverse=True)
+    for x in boost:
+        link[boost.index(x)]=x[0]
+    x=0
+
+    while(x<len(link)):
+        y=x+1
+        while(y<len(link)):
+            if(link[x]==link[y]):
+                print(link[y])
+                del(link[y])
+                d=d+1
+            y=y+1
+        x=x+1
+    print(len(link))
+
     for z in range (0, len(link)):
-        if z//1000==0:
-            print('-')
         site = requests.get('https:'+prefixo+link[z])
         soup = BeautifulSoup(site.content, 'html.parser')
         pagina_excluir = soup.find_all('div', id=True)
@@ -202,25 +228,6 @@ def remover_links(link, prefixo):
                 if (d==3):
                     break
         break
-
-    d=0
-    for x in range(0, len(link)):
-        e = 0
-        for y in range(0, len(link)):
-            if(y>x+1 and y-e<len(link)):
-                if (link[x-d] == link[y-e]):
-                    del(link[x-d])
-                    e = e+1
-                    d = d+1
-                    del(link[y-e])
-                    e = e+1
-                    continue
-            if(y<len(paginas_excluir) and x-d<len(link)):
-                if(link[x-d]==paginas_excluir[y]):
-                    del(link[x-d])
-                    d = d+1
-        if(x+d>=len(link)):
-            break
     return link
 
 def obter_prefixo(link):
