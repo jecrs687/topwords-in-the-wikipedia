@@ -205,7 +205,7 @@ def remover_links(link, prefixo):
             y=y+1
         x=x+1
     print(len(link))
-    # não lembro o q essa parada de baixo faz, talvez tenha sido alguma noia ksks
+    # não lembro o q essa parada abaixo faz, talvez tenha sido alguma noia ksks
     # for z in range (0, len(link)):
     #     site = requests.get('https:'+prefixo+link[z])
     #     soup = BeautifulSoup(site.content, 'html.parser')
