@@ -1,0 +1,8 @@
+{"tamanho":8646,"palavras":[
+
+{"word":В","""repeted":459,"porcent":5.31},
+{"word":И","""repeted":282,"porcent":3.26},
+{"word":На","""repeted":172,"porcent":1.99},
+{"word":С","""repeted":126,"porcent":1.46},
+{"word":По","""repeted":110,"porcent":1.27},
+],}

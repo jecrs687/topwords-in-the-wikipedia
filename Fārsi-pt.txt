@@ -1,0 +1,10 @@
+{"tamanho":4724,"palavras":[
+
+{"word":و","""repeted":288,"porcent":6.10},
+{"word":به","""repeted":206,"porcent":4.36},
+{"word":از","""repeted":185,"porcent":3.92},
+{"word":را","""repeted":154,"porcent":3.26},
+{"word":در","""repeted":152,"porcent":3.22},
+{"word":این","""repeted":130,"porcent":2.75},
+{"word":که","""repeted":110,"porcent":2.33},
+],}

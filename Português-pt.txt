@@ -1,0 +1,16 @@
+{"tamanho":10184,"palavras":[
+
+{"word":De","""repeted":743,"porcent":7.30},
+{"word":A","""repeted":391,"porcent":3.84},
+{"word":E","""repeted":275,"porcent":2.70},
+{"word":Que","""repeted":274,"porcent":2.69},
+{"word":O","""repeted":263,"porcent":2.58},
+{"word":Em","""repeted":256,"porcent":2.51},
+{"word":Da","""repeted":232,"porcent":2.28},
+{"word":Um","""repeted":162,"porcent":1.59},
+{"word":Do","""repeted":155,"porcent":1.52},
+{"word":Para","""repeted":129,"porcent":1.27},
+{"word":Uma","""repeted":128,"porcent":1.26},
+{"word":Por","""repeted":121,"porcent":1.19},
+{"word":Os","""repeted":115,"porcent":1.13},
+],}

@@ -1,0 +1,4 @@
+{"tamanho":1893,"palavras":[
+
+{"word":На","""repeted":126,"porcent":6.66},
+],}

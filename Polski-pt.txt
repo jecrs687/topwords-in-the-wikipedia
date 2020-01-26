@@ -1,0 +1,4 @@
+{"tamanho":3772,"palavras":[
+
+{"word":W","""repeted":170,"porcent":4.51},
+],}
