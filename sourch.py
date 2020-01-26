@@ -128,6 +128,21 @@ def obter_conteudo(link,prefixo):
 def contar_conteudo_e_remover_excesso(conteudo):
     palavras = []
     e=0
+    boost =conteudo[0:int(len(conteudo)/50)]
+    x=0
+    while(x<len(boost)):
+        y=x+1
+        d=0
+        while(y<len(boost)):
+            if(boost[x]==boost[y]):
+                del(boost[y])
+                d=d+1
+            y=y+1
+        boost[x]=[boost[x],d]
+        x=x+1
+    boost.sort(key=lambda x: x[1], reverse=True)
+    for x in boost:
+        conteudo[boost.index(x)]=x[0]
     for x in range(0,len(conteudo)):
         d = 0
         for y in range(x+1, len(conteudo)):
@@ -136,7 +151,7 @@ def contar_conteudo_e_remover_excesso(conteudo):
                 d+=1
         if(len(conteudo)>0):
             if(d>100):
-                palavras.append((conteudo[x], d))
+                palavras.append((conteudo[x], d+1))
 
 
     return palavras
@@ -248,11 +263,11 @@ def obter_prefixo(link):
 
 def arquivar(conteudo, lingua1, tamanho):
     arq = open(lingua1+'-pt.txt','w+', encoding="utf-8")
-    arq.write('{'+'tamanho:{},'.format(tamanho)+'palavras:[')
+    arq.write('{'+'"tamanho":{},'.format(tamanho)+'"palavras":[')
     arq.write("\n")
     arq.write("\n")
     for z in range(0, len(conteudo)):
-        arq.write('{paravra:"'+conteudo[z][0].upper().capitalize()+'",repetida:{}'.format(conteudo[z][1])+',porcentagem:{:0.2f}'.format((conteudo[z][1]/tamanho)*100)+'},')
+        arq.write('{"word":"'+conteudo[z][0].upper().capitalize()+'","repeted":{}'.format(conteudo[z][1])+',"porcent":{}'.format((conteudo[z][1]/tamanho)*100)+'},')
         arq.write("\n")
     arq.write('],}')
     print('arquivo salvo como {}-pt.txt'.format(lingua1))
@@ -300,7 +315,7 @@ def processar_conteudo(prefixo):
         print("-----existem:{} links".format(len(link)))
     print("obtendo condeudo")
     conteudo = obter_conteudo(link[0],prefixo[1])
-    for x in range(1, len(link)):
+    for x in range(1, 1000):
         print("pegando conteudo: {}/{}".format(x, len(link)-1))
         conteudo = conteudo + obter_conteudo(link[x], prefixo[1])
     print("filtrando conteudo")
@@ -323,7 +338,7 @@ def processar_conteudo(prefixo):
 prefixo = obter_prefixo('https://www.wikipedia.org/')
 
 for y in range(0, len(prefixo)):
-    if (prefixo[y][0].isalpha() == 1 and not(prefixo[y][0]=="Deutsch")):
+    if (prefixo[y][0].isalpha() == 1 and not(prefixo[y][0]=="Deutsch")and not(prefixo[y][0]=="Nihongo")):
         print(prefixo[y][0])
         processar_conteudo(prefixo[y])
 
