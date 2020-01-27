@@ -3,6 +3,10 @@ import requests
 from bs4 import BeautifulSoup
 import time
 import random
+from translate import Translator
+linkNumber = 5
+numMinimoRepeticoes = 50
+translator =Translator(to_lang='pt', from_lang='en')
 
 LANGUAGES = {
     'af': 'afrikaans',
@@ -150,7 +154,7 @@ def contar_conteudo_e_remover_excesso(conteudo):
                 del(conteudo[y-d])
                 d+=1
         if(len(conteudo)>0):
-            if(d>100):
+            if(d>numMinimoRepeticoes):
                 palavras.append((conteudo[x], d+1))
 
 
@@ -262,17 +266,15 @@ def obter_prefixo(link):
     return prefixo
 
 def arquivar(conteudo, lingua1, tamanho):
-    arq = open(lingua1+'-pt.txt','w+', encoding="utf-8")
-    arq.write('{'+'"tamanho":{},'.format(tamanho)+'"palavras":[')
-    arq.write("\n")
-    arq.write("\n")
-    for z in range(0, len(conteudo)):
-        arq.write('{"word":"'+conteudo[z][0].upper().capitalize()+'","repeted":{}'.format(conteudo[z][1])+',"porcent":{}'.format((conteudo[z][1]/tamanho)*100)+'},')
+    with open(lingua1+'-pt.txt','w+', encoding="utf-8") as arq:
+        arq.write('{'+'"tamanho":{},'.format(tamanho)+'"palavras":[')
         arq.write("\n")
-    arq.write('],}')
-    print('arquivo salvo como {}-pt.txt'.format(lingua1))
-
-    arq.close()
+        arq.write("\n")
+        for z in range(0, len(conteudo)):
+            arq.write('{"word":"'+conteudo[z][0]+'","pt":"'+ translator.translate(conteudo[z][0])+'",repeted":{}'.format(conteudo[z][1])+',"porcent":{}'.format((conteudo[z][1]/tamanho)*100)+'},')
+            arq.write("\n")
+        arq.write('],}')
+        print('arquivo salvo como {}-pt.txt'.format(lingua1))
 
 def enxutar(conteudo, lingua):
     tradutor = googletrans.Translator()
@@ -305,7 +307,7 @@ def processar_conteudo(prefixo):
     link = obter_paginas([''],prefixo[1])
     print("removendo links excessivos ou identicos")
     link = remover_links(link, prefixo[1])
-    while(len(link)<1000):
+    while(len(link)<linkNumber):
         print("-----existem:{} links".format(len(link)))
         print("obtendo mais paginas")
         link = obter_paginas(link, prefixo[1])
@@ -315,7 +317,7 @@ def processar_conteudo(prefixo):
         print("-----existem:{} links".format(len(link)))
     print("obtendo condeudo")
     conteudo = obter_conteudo(link[0],prefixo[1])
-    for x in range(1, 1000):
+    for x in range(1, linkNumber):
         print("pegando conteudo: {}/{}".format(x, len(link)-1))
         conteudo = conteudo + obter_conteudo(link[x], prefixo[1])
     print("filtrando conteudo")
