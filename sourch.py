@@ -5,7 +5,7 @@ import time
 import random
 from translate import Translator
 linkNumber = 5
-numMinimoRepeticoes = 50
+numMinimoRepeticoes = 5
 translator =Translator(to_lang='pt', from_lang='en')
 
 LANGUAGES = {
