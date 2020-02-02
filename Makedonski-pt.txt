@@ -1,8 +1,0 @@
-{"tamanho":3718,"palavras":[
-
-{"word":На","""repeted":291,"porcent":7.83},
-{"word":Во","""repeted":184,"porcent":4.95},
-{"word":И","""repeted":168,"porcent":4.52},
-{"word":Се","""repeted":120,"porcent":3.23},
-{"word":Од","""repeted":106,"porcent":2.85},
-],}

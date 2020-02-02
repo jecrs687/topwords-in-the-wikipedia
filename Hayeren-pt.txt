@@ -1,6 +1,0 @@
-{"tamanho":4859,"palavras":[
-
-{"word":Եւ","""repeted":189,"porcent":3.89},
-{"word":Է","""repeted":156,"porcent":3.21},
-{"word":Են","""repeted":119,"porcent":2.45},
-],}

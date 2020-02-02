@@ -153,8 +153,8 @@ def contar_conteudo_e_remover_excesso(conteudo):
             if(conteudo[x]==conteudo[y-d]):
                 del(conteudo[y-d])
                 d+=1
-        if(len(conteudo)>0):
-            if(d>numMinimoRepeticoes):
+        if(len(conteudo)>x):
+            if(d>=numMinimoRepeticoes):
                 palavras.append((conteudo[x], d+1))
 
 
