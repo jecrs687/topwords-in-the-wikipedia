@@ -159,7 +159,7 @@ def contar_conteudo_e_remover_excesso(conteudo):
     return palavras
 
 def filtrar_conteudo(conteudo):
-    """this function is the filter of words, 
+    """this function is the filter for the words, 
     this function get the words and filter her"""
     conteudo = conteudo.split()
     d=0
