@@ -119,7 +119,9 @@ LANGCODES = dict(map(reversed, LANGUAGES.items()))
 
 
 def obter_conteudo(link,prefixo):
-    """get all content in one page of wikipedia"""
+    """get all content in one page of wikipedia
+    \n [return string]
+    """
     conteudo = ''
     site = requests.get( 'https:'+prefixo+link)
     soup = BeautifulSoup(site.content, 'html.parser')
@@ -129,7 +131,9 @@ def obter_conteudo(link,prefixo):
     return conteudo.lower()
 
 def contar_conteudo_e_remover_excesso(conteudo):
-    """This function get the words and convert her in one array [[word, weight], ....[word,weight]]"""
+    """This function get the words and convert her in one array [[word, weight], ....[word,weight]]
+    \n [return: array]
+    """
     palavras = []
     e=0
     boost =conteudo[0:int(len(conteudo)/50)]
@@ -160,7 +164,8 @@ def contar_conteudo_e_remover_excesso(conteudo):
 
 def filtrar_conteudo(conteudo):
     """this function is the filter for the words, 
-    this function get the words and filter her"""
+    this function get the words and filter her
+    \n [return: string, int]"""
     conteudo = conteudo.split()
     d=0
     for x in range(0, len(conteudo)):
@@ -180,12 +185,15 @@ def filtrar_conteudo(conteudo):
     return conteudo,tamanho
 
 def ordenar_conteudo(conteudo):
-    """this function only realize one sort of the words basead in the weight"""
+    """this function only realize one sort of the words basead in the weight
+    \n [return array]
+    """
     conteudo.sort(key=lambda x: x[1], reverse=True)
     return conteudo
 
 def obter_paginas(link,prefixo):
-    """get the pages of wikipedia"""
+    """get the pages of wikipedia
+    \n [return array]"""
     y = len(link)
     if (y == 0):
         y = y + 1
@@ -200,7 +208,8 @@ def obter_paginas(link,prefixo):
     return link
 
 def remover_links(link, prefixo):
-    """remove duplicate links"""
+    """remove duplicate links
+    \n [return array]"""
     x=0
     print(len(link))
     boost = link[0:int(len(link)/10)]
@@ -250,7 +259,9 @@ def remover_links(link, prefixo):
     return link
 
 def obter_prefixo(link):
-    """get the prefix of links"""
+    """get the prefix of links
+    \n [return array]
+    """
     d=0
     prefixo = []
     site = requests.get(link)
@@ -270,7 +281,8 @@ def obter_prefixo(link):
     return prefixo
 
 def arquivar(conteudo, lingua1, tamanho):
-    """archive the words in a file txt using a structure json"""
+    """archive the words in a file txt using a structure json
+    \n [return null]"""
     with open(lingua1+'-pt.txt','w+', encoding="utf-8") as arq:
         arq.write('{'+'"tamanho":{},'.format(tamanho)+'"palavras":[')
         arq.write("\n")
@@ -309,7 +321,8 @@ def enxutar(conteudo, lingua):
     return conteudo,traduzido
 
 def processar_conteudo(prefixo):
-    """get and process words embased the prefix"""
+    """get and process words embased the prefix
+    \n [return array]"""
     print("obtendo paginas")
     link = obter_paginas([''],prefixo[1])
     print("removendo links excessivos ou identicos")
