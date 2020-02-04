@@ -4,6 +4,7 @@ import time
 import random
 linkNumber = 5
 numMinimoRepeticoes = 5
+porcentOfBoost=10
 
 def obter_conteudo(link,prefixo):
     """get all content in one page of wikipedia
@@ -138,12 +139,12 @@ def obter_prefixo(link):
 def arquivar(conteudo, lingua1, tamanho):
     """archive the words in a file txt using a structure json
     \n [return null]"""
-    with open(lingua1+'-pt.txt','w+', encoding="utf-8") as arq:
+    with open(lingua1+'-pt.json','w+', encoding="utf-8") as arq:
         arq.write('{'+'"tamanho":{},'.format(tamanho)+'"palavras":[')
         arq.write("\n")
         arq.write("\n")
         for z in range(0, len(conteudo)):
-            arq.write('{"word":"'+conteudo[z][0]+'",repeted":{}'.format(conteudo[z][1])+',"porcent":{}'.format((conteudo[z][1]/tamanho)*100)+'},')
+            arq.write('{"word":"'+conteudo[z][0]+'","repeted":{}'.format(conteudo[z][1])+',"porcent":{}'.format((conteudo[z][1]/tamanho)*100)+'},')
             arq.write("\n")
         arq.write('],}')
         print('arquivo salvo como {}-pt.txt'.format(lingua1))
