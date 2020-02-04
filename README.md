@@ -19,8 +19,5 @@ bs4
 <li>
 time
 </li>
-<li>
-translate
-</li>
 </ul>
 </ol>
