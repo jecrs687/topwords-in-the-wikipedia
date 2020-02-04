@@ -1,122 +1,9 @@
 import requests
-#import googletrans
 from bs4 import BeautifulSoup
 import time
 import random
 linkNumber = 5
 numMinimoRepeticoes = 5
-
-LANGUAGES = {
-    'af': 'afrikaans',
-    'sq': 'albanian',
-    'am': 'amharic',
-    'ar': 'arabic',
-    'hy': 'armenian',
-    'az': 'azerbaijani',
-    'eu': 'basque',
-    'be': 'belarusian',
-    'bn': 'bengali',
-    'bs': 'bosnian',
-    'bg': 'bulgarian',
-    'ca': 'catalan',
-    'ceb': 'cebuano',
-    'ny': 'chichewa',
-    'zh-cn': 'chinese (simplified)',
-    'zh-tw': 'chinese (traditional)',
-    'co': 'corsican',
-    'hr': 'croatian',
-    'cs': 'czech',
-    'da': 'danish',
-    'nl': 'dutch',
-    'en': 'english',
-    'eo': 'esperanto',
-    'et': 'estonian',
-    'tl': 'filipino',
-    'fi': 'finnish',
-    'fr': 'french',
-    'fy': 'frisian',
-    'gl': 'galician',
-    'ka': 'georgian',
-    'de': 'german',
-    'el': 'greek',
-    'gu': 'gujarati',
-    'ht': 'haitian creole',
-    'ha': 'hausa',
-    'haw': 'hawaiian',
-    'iw': 'hebrew',
-    'hi': 'hindi',
-    'hmn': 'hmong',
-    'hu': 'hungarian',
-    'is': 'icelandic',
-    'ig': 'igbo',
-    'id': 'indonesian',
-    'ga': 'irish',
-    'it': 'italian',
-    'ja': 'japanese',
-    'jw': 'javanese',
-    'kn': 'kannada',
-    'kk': 'kazakh',
-    'km': 'khmer',
-    'ko': 'korean',
-    'ku': 'kurdish (kurmanji)',
-    'ky': 'kyrgyz',
-    'lo': 'lao',
-    'la': 'latin',
-    'lv': 'latvian',
-    'lt': 'lithuanian',
-    'lb': 'luxembourgish',
-    'mk': 'macedonian',
-    'mg': 'malagasy',
-    'ms': 'malay',
-    'ml': 'malayalam',
-    'mt': 'maltese',
-    'mi': 'maori',
-    'mr': 'marathi',
-    'mn': 'mongolian',
-    'my': 'myanmar (burmese)',
-    'ne': 'nepali',
-    'no': 'norwegian',
-    'ps': 'pashto',
-    'fa': 'persian',
-    'pl': 'polish',
-    'pt': 'portuguese',
-    'pa': 'punjabi',
-    'ro': 'romanian',
-    'ru': 'russian',
-    'sm': 'samoan',
-    'gd': 'scots gaelic',
-    'sr': 'serbian',
-    'st': 'sesotho',
-    'sn': 'shona',
-    'sd': 'sindhi',
-    'si': 'sinhala',
-    'sk': 'slovak',
-    'sl': 'slovenian',
-    'so': 'somali',
-    'es': 'spanish',
-    'su': 'sundanese',
-    'sw': 'swahili',
-    'sv': 'swedish',
-    'tg': 'tajik',
-    'ta': 'tamil',
-    'te': 'telugu',
-    'th': 'thai',
-    'tr': 'turkish',
-    'uk': 'ukrainian',
-    'ur': 'urdu',
-    'uz': 'uzbek',
-    'vi': 'vietnamese',
-    'cy': 'welsh',
-    'xh': 'xhosa',
-    'yi': 'yiddish',
-    'yo': 'yoruba',
-    'zu': 'zulu',
-    'fil': 'Filipino',
-    'he': 'Hebrew'
-}
-
-LANGCODES = dict(map(reversed, LANGUAGES.items()))
-
 
 def obter_conteudo(link,prefixo):
     """get all content in one page of wikipedia
@@ -130,59 +17,47 @@ def obter_conteudo(link,prefixo):
     conteudo.encode(encoding='UTF-8',errors='ignore')
     return conteudo.lower()
 
+def booster(conteudo):
+    """order the firsts items in the array, this is a boost for the order the full vector
+    \n [return array]"""
+    boost = contar_conteudo_e_remover_excesso(conteudo[0:int(len(conteudo)/porcentOfBoost)])
+    boost = ordenar_conteudo(boost)
+    for x in boost:
+        conteudo.remove(x[0])
+        conteudo.insert(boost.index(x), x[0])
+    return conteudo
+
 def contar_conteudo_e_remover_excesso(conteudo):
     """This function get the words and convert her in one array [[word, weight], ....[word,weight]]
     \n [return: array]
     """
-    palavras = []
-    e=0
-    boost =conteudo[0:int(len(conteudo)/50)]
-    x=0
-    while(x<len(boost)):
-        y=x+1
-        d=0
-        while(y<len(boost)):
-            if(boost[x]==boost[y]):
-                del(boost[y])
-                d=d+1
-            y=y+1
-        boost[x]=[boost[x],d]
-        x=x+1
-    boost.sort(key=lambda x: x[1], reverse=True)
-    for x in boost:
-        conteudo[boost.index(x)]=x[0]
-    for x in range(0,len(conteudo)):
-        d = 0
-        for y in range(x+1, len(conteudo)):
-            if(conteudo[x]==conteudo[y-d]):
-                del(conteudo[y-d])
-                d+=1
-        if(len(conteudo)>x):
-            if(d>=numMinimoRepeticoes):
-                palavras.append((conteudo[x], d+1))
-    return palavras
+    words=[]
+    while(len(conteudo)>0):
+        weight=conteudo.count(conteudo[0])
+        word=conteudo[0]
+        words.append((word, weight))
+        lenght=len(conteudo)
+        x=0
+        while(x<lenght):
+            if(conteudo[x] == word):
+                del(conteudo[x])
+                lenght-=1
+                continue
+            x+=1
+    return words
 
 def filtrar_conteudo(conteudo):
     """this function is the filter for the words, 
     this function get the words and filter her
     \n [return: string, int]"""
     conteudo = conteudo.split()
-    d=0
-    for x in range(0, len(conteudo)):
-        if(conteudo[x-d].isalpha()==0):
-            del(conteudo[x-d])
-            d=d+1
-            continue
-        if(conteudo[x-d].isalnum()==0):
-            del(conteudo[x-d])
-            d=d+1
-            continue
-        if (conteudo[x-d].count('wiki') > 0):
-            del (conteudo[x-d])
-            d = d + 1
-            continue
-    tamanho = len(conteudo)
-    return conteudo,tamanho
+    palavras = []
+    for x in conteudo:
+        if(x.isalpha() and x.count('wiki') < 1):
+            palavras.append(x)
+    tamanho = len(palavras)
+    del(conteudo)
+    return palavras,tamanho
 
 def ordenar_conteudo(conteudo):
     """this function only realize one sort of the words basead in the weight
@@ -236,26 +111,6 @@ def remover_links(link, prefixo):
             y=y+1
         x=x+1
     print(len(link))
-    # não lembro o q essa parada abaixo faz, talvez tenha sido alguma noia ksks
-    # for z in range (0, len(link)):
-    #     site = requests.get('https:'+prefixo+link[z])
-    #     soup = BeautifulSoup(site.content, 'html.parser')
-    #     pagina_excluir = soup.find_all('div', id=True)
-    #     paginas_excluir = []
-    #     d=0
-    #     for x in range (0, len(pagina_excluir)):
-    #         pagina_excluir = soup.find_all('div', id=True)
-    #         if(pagina_excluir[x]['id']=='mw-panel' or pagina_excluir[x]['id']=='lang' or pagina_excluir[x]['id']=='mp-sister-content'):
-    #             pagina_excluir = pagina_excluir[x].find_all('a', href=True)
-    #             for y in range(0,len(pagina_excluir)):
-    #                 if(not(pagina_excluir[y]['href']==None)):
-    #                     if(not(pagina_excluir[y]['href'].count('.')>0)):
-    #                         paginas_excluir.append(pagina_excluir[y]['href'])
-    #                         d = d+1
-
-    #             if (d==3):
-    #                 break
-    #     break
     return link
 
 def obter_prefixo(link):
@@ -343,6 +198,7 @@ def processar_conteudo(prefixo):
     print("filtrando conteudo")
     conteudo,tamanho = filtrar_conteudo(conteudo)
     print("contando conteudo e removendo excesso")
+    conteudo = booster(conteudo)
     conteudo = contar_conteudo_e_remover_excesso(conteudo)
     print("ordenando conteudo")
     conteudo = ordenar_conteudo(conteudo)
