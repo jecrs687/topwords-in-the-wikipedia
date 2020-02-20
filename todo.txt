@@ -1,0 +1,6 @@
+1.
+alterar o nome no package.json
+2.
+alterar a descrição no public/index.html/ meta com o id='google'
+3.
+alterar as informações no src/infor.json

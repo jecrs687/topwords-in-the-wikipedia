@@ -1,0 +1,100 @@
+.Site {
+    display: flex;
+    flex-direction: column;
+  }
+.Site  .header{
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    align-self: stretch;
+    height: 100vh;
+    background:linear-gradient(rgba(0, 255, 157),#00FFFF );
+}
+
+.Site .header .title{
+    display: flex;
+    height: 70vmin;
+    width: 70vmin;
+    z-index: 2;
+    border-radius: 40vmin;
+    background-color: rgb(0, 133, 133);
+    align-items: center; 
+    justify-content: center; 
+}
+
+.Site .header .title h1{
+    color:white;
+}
+
+.Site .body{
+
+}
+
+.Site .footer{
+flex:1;
+}
+
+
+/* Animations*/
+/* 
+
+
+
+
+
+*/
+.Site .header div:nth-child(1){
+    height: 70vmin;
+    width: 70vmin;
+    position: absolute;
+    border-radius: 40vmin;
+    background:rgb(0, 133, 133,0.40);
+    z-index: 1;
+    animation: box-back 4s infinite linear;
+}
+.Site .header div:nth-child(2){
+    height: 70vmin;
+    width: 70vmin;
+    position: absolute;
+    border-radius: 40vmin;
+    background:rgb(0, 133, 133,0.40);
+    z-index: 1;
+    animation: box-back 4s 1s infinite linear;
+}
+.Site .header div:nth-child(3){
+    height: 70vmin;
+    width: 70vmin;
+    position: absolute;
+    border-radius: 40vmin;
+    background:rgb(0, 133, 133,0.40);
+    z-index: 1;
+    animation: box-back 4s 2s infinite alternate-reverse;
+}
+.Site .header div:nth-child(4){
+    height: 70vmin;
+    width: 70vmin;
+    position: absolute;
+    border-radius: 40vmin;
+    background:rgb(0, 133, 133,0.40);
+    z-index: 1;
+    animation: box-back 4s 3s infinite alternate;
+}
+@keyframes box-back{
+    0%{
+        transform: scale(1);
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+        transform: scale(1.2);
+    }
+
+}
+/* 
+
+
+
+
+
+*/
