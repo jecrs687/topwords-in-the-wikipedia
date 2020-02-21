@@ -1,13 +1,21 @@
-{
+{   "_comment":{
+    "description_of_type":
+    "Type have 3 types: script|site|mobile|desktop",
+    "script":"scripts are sites destineds for publish explications about scripts",
+    "site":"sites have the goal share informations or personal sites",
+    "mobile":"mobile for official sites of mobile applications",
+    "desktop":"desktops for official sites of desktop applications",
+    "title":"the title for your website",
+    "descriptions":"the descriptions are the body of website you can make importants points using arrays inside the array"
+    },
     "title":"top_words_in_wikipedia",
     "type":"script",
+    "youtube":"",
     "description":[
-       "bdsaun sa apunare aer9bune sage raiber pai ebavipanvurnv bdsaun nare a sage raiber ebavipanvurnv bdsaun sa apunare aer9bune sage raiber pai ebavipanvurnv bdsaun sa apunare aer9bune sage pai ebavipanvurnv bdsaun sa apunaaer9bune sageiber pai ebavipannv bdsaun sa apunare aer9bune sage raiber pai ebanvurnv bdsaun sa apunare aer9bune sage raiber pai ebavurnv bdsaun sa apunare aer9bune sage raiber pai ebavipanvurnv",
-       "bdsaun sa apunare aer9bune sage raiber pai ebavipanvurnv bdsaun nare a sage raiber ebavipanvurnv bdsaun sa apunare aer9bune sage raiber pai ebavipanvurnv bdsaun sa apunare aer9bune sage pai ebavipanvurnv bdsaun sa apunaaer9bune sageiber pai ebavipannv bdsaun sa apunare aer9bune sage raiber pai ebanvurnv bdsaun sa apunare aer9bune sage raiber pai ebavurnv bdsaun sa apunare aer9bune sage raiber pai ebavipanvurnv",
-       "bdsaun sa apunare aer9bune sage raiber pai ebavipanvurnv bdsaun nare a sage raiber ebavipanvurnv bdsaun sa apunare aer9bune sage raiber pai ebavipanvurnv bdsaun sa apunare aer9bune sage pai ebavipanvurnv bdsaun sa apunaaer9bune sageiber pai ebavipannv bdsaun sa apunare aer9bune sage raiber pai ebanvurnv bdsaun sa apunare aer9bune sage raiber pai ebavurnv bdsaun sa apunare aer9bune sage raiber pai ebavipanvurnv",
-       "bdsaun sa apunare aer9bune sage raiber pai ebavipanvurnv bdsaun nare a sage raiber ebavipanvurnv bdsaun sa apunare aer9bune sage raiber pai ebavipanvurnv bdsaun sa apunare aer9bune sage pai ebavipanvurnv bdsaun sa apunaaer9bune sageiber pai ebavipannv bdsaun sa apunare aer9bune sage raiber pai ebanvurnv bdsaun sa apunare aer9bune sage raiber pai ebavurnv bdsaun sa apunare aer9bune sage raiber pai ebavipanvurnv",
-       "bdsaun sa apunare aer9bune sage raiber pai ebavipanvurnv bdsaun nare a sage raiber ebavipanvurnv bdsaun sa apunare aer9bune sage raiber pai ebavipanvurnv bdsaun sa apunare aer9bune sage pai ebavipanvurnv bdsaun sa apunaaer9bune sageiber pai ebavipannv bdsaun sa apunare aer9bune sage raiber pai ebanvurnv bdsaun sa apunare aer9bune sage raiber pai ebavurnv bdsaun sa apunare aer9bune sage raiber pai ebavipanvurnv",
-       "bdsaun sa apunare aer9bune sage raiber pai ebavipanvurnv bdsaun nare a sage raiber ebavipanvurnv bdsaun sa apunare aer9bune sage raiber pai ebavipanvurnv bdsaun sa apunare aer9bune sage pai ebavipanvurnv bdsaun sa apunaaer9bune sageiber pai ebavipannv bdsaun sa apunare aer9bune sage raiber pai ebanvurnv bdsaun sa apunare aer9bune sage raiber pai ebavurnv bdsaun sa apunare aer9bune sage raiber pai ebavipanvurnv"],
+       "The most common words in all languages, using the wikipedia as the database. This script generate one file '.txt' this file is structured as json. You need:",
+    ["Python 3.6+","install modules:",["requests", "bs4","time"]],
+    "For run the script you need also internet :-)"
+        ],
         "colors":{
         "primary":"#aff3ff",
         "complementary":"#ffbbaf",

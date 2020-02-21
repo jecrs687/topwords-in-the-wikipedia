@@ -23,7 +23,30 @@ export default function main(){
                 <div className='description'>
                     <h2>Description</h2>
                     <i>
-                    {infor.description.map(value=><p>{value}</p>)}
+                    {infor.description.map(value=>
+                        typeof value ===typeof []?
+                        <ol>
+                        {
+                            value.map(
+                               value=>
+                               typeof value ===typeof []?
+                               <ul>
+                                    {value.map(value=>
+                                typeof value ===typeof []?
+                                <ol>
+                                    {value.map(
+                                        value=><li>{value}</li>
+                                    )}
+                                </ol>
+                                :<li>{value}</li>
+                                )}
+                               </ul>:
+                               <li>{value}</li>
+
+                            )
+                        }
+                    </ol>
+                    :<p>{value}</p>)}
                     </i>
                 </div>
             </div>
